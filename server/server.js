@@ -19,6 +19,18 @@ io.on('connection',(socket) => {
   // The connection is initiated in the public/index.html
   console.log('New user connected');
 
+  // Creating emit event from server to client
+  socket.emit('newChat', {
+    from: 'Server.js',
+    text: 'hello, world'
+  });
+
+
+  //Create a chat event
+  socket.on('createChat', (chat) => {
+    console.log('createChat', chat);
+  })
+
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
