@@ -1,12 +1,9 @@
 // IO
-
-
-
 const path = require('path');
 const express = require('express');
 const http = require('http');
 const app = express();
-
+const {generateChat} = require('./utils/chat');
 // Loading the socketIO library
 const socketIO = require('socket.io');
 
@@ -25,19 +22,13 @@ io.on('connection',(socket) => {
 
 
   // Send message to the specific user connected
-  socket.emit('newChat', {
-    from: "admin",
-    text: "Welcome to the chat app",
-    createdAt: new Date().getTime()
-  });
+  socket.emit('newChat',
+  generateChat('Admin', 'Welcome to the Chat App'));
 
 
   // Send message to everyone except the user connected
-  socket.broadcast.emit('newChat', {
-    from: 'admin',
-    text: 'New user joined the app',
-    createdAt: new Date().getTime()
-  });
+  socket.broadcast.emit('newChat',
+  generateChat('Admin', 'New User Joined the App'));
 
 
 
@@ -46,11 +37,7 @@ io.on('connection',(socket) => {
     console.log('createChat', chat);
     // IO emits to all the users
     // socket emits only to specific user
-    io.emit('newChat', {
-      from: chat.from,
-      text: chat.text,
-      createdAt: new Date().getTime()
-    });
+    io.emit('newChat', generateChat(chat.from, chat.text));
 
 
   })
