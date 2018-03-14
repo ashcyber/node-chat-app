@@ -8,15 +8,9 @@ var socket = io();
 socket.on('connect', function(){
   console.log('Connected to the server');
   // emit a chat create event from client
-
-  socket.emit('createChat', {
-    from: 'Aishwarya Sharma',
-    text: 'hello, world'
-  })
-
 });
 
-// When server is down 
+// When server is down
 socket.on('disconnect', function() {
   console.log('Disconnected from the server');
 });

@@ -1,3 +1,7 @@
+// IO
+
+
+
 const path = require('path');
 const express = require('express');
 const http = require('http');
@@ -19,16 +23,36 @@ io.on('connection',(socket) => {
   // The connection is initiated in the public/index.html
   console.log('New user connected');
 
-  // Creating emit event from server to client
+
+  // Send message to the specific user connected
   socket.emit('newChat', {
-    from: 'Server.js',
-    text: 'hello, world'
+    from: "admin",
+    text: "Welcome to the chat app",
+    createdAt: new Date().getTime()
   });
+
+
+  // Send message to everyone except the user connected
+  socket.broadcast.emit('newChat', {
+    from: 'admin',
+    text: 'New user joined the app',
+    createdAt: new Date().getTime()
+  });
+
 
 
   //Create a chat event
   socket.on('createChat', (chat) => {
     console.log('createChat', chat);
+    // IO emits to all the users
+    // socket emits only to specific user
+    io.emit('newChat', {
+      from: chat.from,
+      text: chat.text,
+      createdAt: new Date().getTime()
+    });
+
+
   })
 
   socket.on('disconnect', () => {
