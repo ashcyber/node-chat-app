@@ -43,13 +43,16 @@ socket.on('newChat', function(chat) {
   $('#chats').append(li);
 })
 
+
+var chatTextBox = jQuery('#chat_text');
 $('#chat_form').submit(function(e){
   e.preventDefault();
 
   socket.emit('createChat', {
     from: 'ashcyber',
-    text: $('#chat_text').val()
-  }, function(resp){
+    text: chatTextBox.val()
+  }, function(){
+    chatTextBox.val('');
   });
 })
 
@@ -64,8 +67,12 @@ locBtn.click(function(e){
       return alert('Geolocation is not supported by the browser.');
     }
 
+    locBtn.attr('disabled', 'disabled').text('Sending Location...');
+
     navigator.geolocation.getCurrentPosition(function(pos){
       console.log('fetching location: ');
+      locBtn.removeAttr('disabled');
+      locBtn.html('<span class="glyphicon glyphicon-map-marker">&nbsp;MapMe</span>');
       socket.emit('createLocData', {
         lat: pos.coords.latitude,
         long: pos.coords.longitude
@@ -74,7 +81,8 @@ locBtn.click(function(e){
 
     },function(){
       // Error handler
+      locBtn.html('<span class="glyphicon glyphicon-map-marker">&nbsp;MapMe</span>');
+      locBtn.removeAttr('disabled');
       alert('Cannot fetch the location')
     });
-
 })

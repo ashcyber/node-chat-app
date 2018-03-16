@@ -47,7 +47,7 @@ io.on('connection',(socket) => {
     io.emit('newChat', generateChat(chat.from, chat.text));
 
     // Calling the callback function given by the front end
-    callback('server');
+    callback();
   })
 
   socket.on('disconnect', () => {
