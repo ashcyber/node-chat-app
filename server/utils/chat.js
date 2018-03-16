@@ -8,5 +8,14 @@ var generateChat = (from, text) =>  {
   }
 }
 
+
+
+var generateLoc = (from, lat, long) =>{
+  return{
+    from: from,
+    url: `https://www.google.com/maps?q=${lat},${long}`
+  }
+}
+
 // Export
-module.exports = {generateChat};
+module.exports = {generateChat, generateLoc};

@@ -3,7 +3,10 @@ const path = require('path');
 const express = require('express');
 const http = require('http');
 const app = express();
-const {generateChat} = require('./utils/chat');
+const {generateChat, generateLoc} = require('./utils/chat');
+
+
+
 // Loading the socketIO library
 const socketIO = require('socket.io');
 
@@ -30,6 +33,10 @@ io.on('connection',(socket) => {
   socket.broadcast.emit('newChat',
   generateChat('Admin', 'New User Joined the App'));
 
+  //Get Location from user
+  socket.on('createLocData', (loc) => {
+    io.emit('newChatLoc', generateLoc('Admin', loc.lat, loc.long));
+  });
 
 
   //Create a chat event
