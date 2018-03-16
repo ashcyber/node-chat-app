@@ -20,3 +20,13 @@ socket.on('disconnect', function() {
 socket.on('newChat', function(chat) {
   console.log('newChat', chat);
 })
+
+
+
+//Sending Acknowledgements with callbacks
+socket.emit('createChat', {
+  from: 'Frank',
+  text: 'Hi'
+}, function(resp){
+  console.log(`The message is received: ${resp}`)
+});

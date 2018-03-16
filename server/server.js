@@ -33,13 +33,14 @@ io.on('connection',(socket) => {
 
 
   //Create a chat event
-  socket.on('createChat', (chat) => {
+  socket.on('createChat', (chat, callback) => {
     console.log('createChat', chat);
     // IO emits to all the users
     // socket emits only to specific user
     io.emit('newChat', generateChat(chat.from, chat.text));
 
-
+    // Calling the callback function given by the front end
+    callback('server');
   })
 
   socket.on('disconnect', () => {
