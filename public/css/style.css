@@ -1,0 +1,101 @@
+body{
+  margin: 0px;
+}
+
+#people{
+  height: 800px;
+  background: #457fca;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #5691c8, #457fca);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #5691c8, #457fca); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 10px;
+  color: white;
+  font-size: 24px;
+}
+
+#chat_box{
+  height: 800px;
+}
+
+#chat_area{
+  height: 99%;
+  margin: 5px;
+  padding: 10px;
+  color: white;
+}
+
+#bottom_section{
+  height: 9%;
+  background: #EEEEEE;
+}
+
+#chats{
+  list-style: none;
+}
+
+#chats li{
+  border: 1px solid white;
+  padding: 2px;
+  border-radius: 2%;
+  background-color: #ccc;
+  opacity: 0.5;
+  color: black;
+  width: 70%;
+  word-wrap: break-word;
+}
+
+#top_section{
+  overflow-y: scroll;
+  height: 90%;
+ background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #F90;
+  background-image: -webkit-linear-gradient(45deg,
+                                            rgba(255, 255, 255, .2) 25%,
+                        transparent 25%,
+                        transparent 50%,
+                        rgba(255, 255, 255, .2) 50%,
+                        rgba(255, 255, 255, .2) 75%,
+                        transparent 75%,
+                        transparent)
+}
+
+@media only screen and (max-width: 600px) {
+    #people, #chat_box{
+      height: 500px;
+    }
+    #top_section{
+      height: 70%;
+    }
+
+    #bottom_section{
+      height: 29%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    #people, #chat_box{
+      height: 700px;
+    }
+
+    #top_section{
+      height: 80%;
+    }
+
+    #bottom_section{
+      height: 19%;
+    }
+}

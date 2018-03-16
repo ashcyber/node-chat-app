@@ -4,27 +4,46 @@
     <meta charset="utf-8">
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
   </head>
   <body>
-    <div class="container text-left">
-      <h1 class="text-center" style="margin-bottom: 50px">Welcome to Chat Application</h1>
+
+      <h1 class="text-center">Welcome to Chat Application</h1>
       <hr>
+      <div class="container">
+        <div class="center">
+          <div class="row">
+            <div class="col-xs-4" id="people">People</div>
+            <div class="col-xs-8" id="chat_box">
+              <div id="top_section"; border: 1px solid black;">
+                <div id="chat_area">
+                  <ul id="chats" class="text">
+                  </ul>
+                </div>
 
-      <ul class="text-left" id="chats" style="list-style: none"></ul>
-      <form id="chat-form" class="form-horizontal">
-        <div class="form-group">
-          <div class="col-sm-5">
-            <input class="form-control" id="chat_text" type="text" placeholder="Enter a message">
+
+              </div>
+              <div id="bottom_section"class="text-right">
+
+                <form id="chat_form">
+                  <div style="padding: 10px; margin: 5px;" class="row">
+                    <input id="chat_text" placeholder="Enter Message..." type="text" class="col-md-8 col-xs-12" style="height: 50px">
+                    <button id="sub_btn" class="col-md-2 col-xs-6 btn-danger" style="height: 50px">
+                      <span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp; Send
+                    </button>
+                    <button id="sub_btn_loc" class="col-md-2 col-xs-6 btn-info" style="height: 50px">
+                      <span class="glyphicon glyphicon-map-marker">&nbsp;MapMe</span>
+                    </button>
+                  </div>
+              </form>
+
+              </div>
+            </div>
+           </div>
           </div>
-          <button class="btn btn-primary" id="sub_btn">Submit</button>
         </div>
-        <button class="btn btn-default" id="sub_btn_loc"><span class="glyphicon glyphicon-map-marker"></span>
-          Send Location</button>
+      </div>
 
-
-
-      </form>
-    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery-3.3.1.min.js"></script>

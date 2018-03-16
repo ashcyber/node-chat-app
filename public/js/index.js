@@ -43,7 +43,7 @@ socket.on('newChat', function(chat) {
   $('#chats').append(li);
 })
 
-$('#chat-form').submit(function(e){
+$('#chat_form').submit(function(e){
   e.preventDefault();
 
   socket.emit('createChat', {
