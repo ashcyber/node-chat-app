@@ -19,14 +19,17 @@ socket.on('disconnect', function() {
 // fetch chat message from the server
 socket.on('newChat', function(chat) {
   console.log('newChat', chat);
+  var li = `<li><b>${chat.from}</b> :<i> ${chat.text}</i></li>`
+  $('#chats').append(li);
 })
 
+$('#chat-form').submit(function(e){
+  e.preventDefault();
 
+  socket.emit('createChat', {
+    from: 'ashcyber',
+    text: $('#chat_text').val()
+  }, function(resp){
+  });
 
-//Sending Acknowledgements with callbacks
-socket.emit('createChat', {
-  from: 'Frank',
-  text: 'Hi'
-}, function(resp){
-  console.log(`The message is received: ${resp}`)
-});
+})
