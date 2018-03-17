@@ -1,10 +1,13 @@
 // Store utiltiy function related to chat
 
+// Moment for time parsing
+var moment = require('moment');
+
 var generateChat = (from, text) =>  {
   return {
     from: from,
     text: text,
-    createAt: new Date().getTime()
+    createAt: moment().valueOf()
   }
 }
 
@@ -13,7 +16,8 @@ var generateChat = (from, text) =>  {
 var generateLoc = (from, lat, long) =>{
   return{
     from: from,
-    url: `https://www.google.com/maps?q=${lat},${long}`
+    url: `https://www.google.com/maps?q=${lat},${long}`,
+    createAt: moment().valueOf()
   }
 }
 

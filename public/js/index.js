@@ -1,5 +1,5 @@
 //***********CLIENT SIDE JavaScript *****************
-// Initiate a connection request
+// Initiate a connection
 var socket = io();
 
 // Checking for connection with the server
@@ -19,7 +19,7 @@ socket.on('disconnect', function() {
 // fetch location chat from the server
 socket.on('newChatLoc', function(loc){
   var li = `<li>
-      <b>${loc.from}</b> :
+      <b>${loc.from} ${moment(loc.createAt).format('h:mm a')}</b> :
       <i> <a href='${loc.url}' target="_blank">MyLocation</a></i>
     </li>`;
 
@@ -38,8 +38,9 @@ socket.on('newChatLoc', function(loc){
 
 // fetch chat message from the server
 socket.on('newChat', function(chat) {
+  var formatTime = moment(chat.createAt).format('h:mm a');
   console.log('newChat', chat);
-  var li = `<li><b>${chat.from}</b> :<i> ${chat.text}</i></li>`
+  var li = `<li><b>${chat.from} ${formatTime} </b> :<i> ${chat.text}</i></li>`
   $('#chats').append(li);
 })
 
