@@ -1,6 +1,7 @@
 //***********CLIENT SIDE JavaScript *****************
 // Initiate a connection
 var socket = io();
+var scrollval = 10;
 
 // Checking for connection with the server
 // Not using ES6 notation because it may fail in certain..
@@ -30,9 +31,9 @@ socket.on('newChatLoc', function(loc){
       createAt: moment(loc.createAt).format('h:mm a')
     });
     jQuery('#chats').append(html);
-
+    var elem = jQuery('#top_section');
+    elem.animate({ scrollTop: scrollval+=50 }, "fast");
 });
-
 // fetch chat message from the server
 socket.on('newChat', function(chat) {
 
@@ -45,7 +46,8 @@ socket.on('newChat', function(chat) {
     createAt: formatTime
   });
   jQuery('#chats').append(html);
-
+  var elem = jQuery('#top_section');
+  elem.animate({ scrollTop: scrollval+=50 }, "fast");
 })
 
 
