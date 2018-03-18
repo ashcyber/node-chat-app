@@ -15,33 +15,37 @@ socket.on('disconnect', function() {
   console.log('Disconnected from the server');
 });
 
-
 // fetch location chat from the server
 socket.on('newChatLoc', function(loc){
-  var li = `<li>
-      <b>${loc.from} ${moment(loc.createAt).format('h:mm a')}</b> :
-      <i> <a href='${loc.url}' target="_blank">MyLocation</a></i>
-    </li>`;
+    var a = jQuery(`<a target="_blank"><i>:CurrentLoc</i></a>`);
+    a.attr('href', loc.url);
 
-    $('#chats').append(li);
 
-  // var li = jQuery('<li></li>');
-  // var a = jQuery(`<a target="_blank"><i>:CurrentLoc</i></a>`)
-  // li.text(`${loc.from}`);
-  // a.attr('href', loc.url);
-  // li.append(a);
-  // $('#chats').append(li);
+    // Using Mustache to render a template in the chat box
+    // It is used to make the application scalable and easier to manage
+    var template = jQuery('#loc_chat_template').html();
+    var html = Mustache.render(template, {
+      url: loc.url,
+      from: loc.from,
+      createAt: moment(loc.createAt).format('h:mm a')
+    });
+    jQuery('#chats').append(html);
 
 });
 
-
-
 // fetch chat message from the server
 socket.on('newChat', function(chat) {
+
+  // Similar to location using moustache for chats
   var formatTime = moment(chat.createAt).format('h:mm a');
-  console.log('newChat', chat);
-  var li = `<li><b>${chat.from} ${formatTime} </b> :<i> ${chat.text}</i></li>`
-  $('#chats').append(li);
+  var template = jQuery('#chat_template').html();
+  var html = Mustache.render(template, {
+    text: chat.text,
+    from: chat.from,
+    createAt: formatTime
+  });
+  jQuery('#chats').append(html);
+
 })
 
 
@@ -56,8 +60,6 @@ $('#chat_form').submit(function(e){
     chatTextBox.val('');
   });
 })
-
-
 
 var locBtn = $('#sub_btn_loc');
 locBtn.click(function(e){

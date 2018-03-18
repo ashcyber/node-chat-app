@@ -1,5 +1,9 @@
 body{
   margin: 0px;
+  background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 #people{
@@ -33,11 +37,12 @@ body{
 }
 
 #chats li{
-  border: 1px solid white;
-  padding: 2px;
-  border-radius: 2%;
-  background-color: #ccc;
-  opacity: 0.5;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5%;
+  background: #F7971E;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFD200, #F7971E);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFD200, #F7971E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: black;
   width: 70%;
   word-wrap: break-word;
@@ -46,9 +51,9 @@ body{
 #top_section{
   overflow-y: scroll;
   height: 90%;
- background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #1e3c72;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2a5298, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2a5298, #1e3c72); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 ::-webkit-scrollbar {
@@ -98,4 +103,15 @@ body{
     #bottom_section{
       height: 19%;
     }
+}
+
+
+#chats li .chat_title h4{
+  font-weight: bold;
+  display: inline;
+  font-size: 14px;
+}
+
+.text-muted{
+  font-size: 12px;
 }
