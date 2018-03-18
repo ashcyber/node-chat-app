@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat | ChatNode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+  </head>
+  <body>
+
+      <h1 style="color: white" class="text-center">Welcome to Chat Application</h1>
+      <hr>
+      <div class="container">
+        <div class="center">
+          <div class="row">
+            <div class="col-xs-4" id="people">People</div>
+            <div class="col-xs-8" id="chat_box">
+              <div id="top_section">
+                <div id="chat_area">
+                  <ul id="chats" class="text">
+                  </ul>
+                </div>
+
+
+              </div>
+              <div id="bottom_section"class="text-right">
+
+                <form id="chat_form">
+                  <div style="padding: 10px; margin: 5px;" class="row">
+                    <input id="chat_text" placeholder="Enter Message..." type="text" class="col-md-8 col-xs-12"
+                     autfocus autocomplete="off" style="height: 50px">
+                    <button id="sub_btn" class="col-md-2 col-xs-6 btn-danger" style="height: 50px">
+                      <span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp; Send
+                    </button>
+                    <button id="sub_btn_loc" class="col-md-2 col-xs-6 btn-info" style="height: 50px">
+                      <span class="glyphicon glyphicon-map-marker">&nbsp;MapMe</span>
+                    </button>
+                  </div>
+              </form>
+
+              </div>
+            </div>
+           </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <script id="chat_template" type="text/template">
+      <li class="achat">
+        <div class="chat_title">
+          <h4>{{from}}</h4>
+          <span class="text-muted">{{createAt}}</span>
+        </div>
+        <div class="chat_body">
+          <p>{{text}}</p>
+        </div>
+      </li>
+    </script>
+
+
+
+    <script id="loc_chat_template" type="text/template">
+      <li class="achat">
+        <div class="chat_title">
+          <h4>{{from}}</h4>
+          <span class="text-muted">{{createAt}}</span>
+        </div>
+        <div class="chat_body">
+          <a href="{{url}}" target="_blank">  <span class="glyphicon glyphicon-map-marker">MyLocation</a>
+        </div>
+      </li>
+    </script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery-3.3.1.min.js"></script>
+    <script src="/js/libs/moment.js"></script>
+    <script src="/js/libs/mustache.js"></script>
+    <script src="/js/chat.js"></script>
+
+  </body>
+</html>
