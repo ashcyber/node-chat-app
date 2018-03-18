@@ -4,7 +4,7 @@ const express = require('express');
 const http = require('http');
 const app = express();
 const {generateChat, generateLoc} = require('./utils/chat');
-
+const {isRealString} = require('./utils/validation');
 
 
 // Loading the socketIO library
@@ -24,14 +24,30 @@ io.on('connection',(socket) => {
   console.log('New user connected');
 
 
-  // Send message to the specific user connected
-  socket.emit('newChat',
-  generateChat('Admin', 'Welcome to the Chat App'));
+  // On user Joining
+  socket.on('join', (params, callback) => {
+    if(!isRealString(params.displayname) || !isRealString(params.roomname)){
+      callback('Name and Room name are required.');
+    }
+
+    // Joining A specific room using join function
+    socket.join(params.roomname);
 
 
-  // Send message to everyone except the user connected
-  socket.broadcast.emit('newChat',
-  generateChat('Admin', 'New User Joined the App'));
+    // Send message to the specific user connected
+    socket.emit('newChat',
+    generateChat('Admin', `Welcome to the ChatNode ${params.displayname}`));
+
+
+    // Send message to everyone except the user connected in a particular room
+    socket.broadcast.to(params.roomname).emit('newChat',
+    generateChat('Admin', ` ${params.displayname} joined the ChatNode`));
+
+    callback();
+  });
+
+
+
 
   //Get Location from user
   socket.on('createLocData', (loc) => {

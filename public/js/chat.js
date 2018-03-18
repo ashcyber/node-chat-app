@@ -3,12 +3,43 @@
 var socket = io();
 var scrollval = 10;
 
+// URL Parsing function
+(function($){
+  $.deparam = $.deparam || function(uri){
+    if(uri === undefined){
+      uri = window.location.search;
+    }
+    var queryString = {};
+    uri.replace(
+      new RegExp(
+        "([^?=&]+)(=([^&#]*))?", "g"),
+        function($0, $1, $2, $3) {
+        	queryString[$1] = decodeURIComponent($3.replace(/\+/g, '%20'));
+        }
+      );
+      return queryString;
+    };
+})(jQuery);
+
+
 // Checking for connection with the server
 // Not using ES6 notation because it may fail in certain..
 // ..devices
 socket.on('connect', function(){
-  console.log('Connected to the server');
-  // emit a chat create event from client
+  // Parse params using custom function
+  var params = jQuery.deparam(window.location.search);
+
+  // emit a join event
+  // send params as arguments
+  // return an acknowledge function
+  socket.emit('join', params , function(err){
+    if(err){
+      alert(err);
+      window.location.href = '/';
+    }else{
+      console.log('success');
+    }
+  });
 });
 
 // When server is down
@@ -56,7 +87,7 @@ $('#chat_form').submit(function(e){
   e.preventDefault();
 
   socket.emit('createChat', {
-    from: 'ashcyber',
+    from: jQuery.deparam(document.location.search).displayname,
     text: chatTextBox.val()
   }, function(){
     chatTextBox.val('');
