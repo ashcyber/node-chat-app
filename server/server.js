@@ -1,4 +1,4 @@
-// IO
+// import modules classes...
 const path = require('path');
 const express = require('express');
 const http = require('http');
@@ -6,8 +6,6 @@ const app = express();
 const {generateChat, generateLoc} = require('./utils/chat');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users.js');
-
-
 
 // Loading the socketIO library
 const socketIO = require('socket.io');
@@ -19,7 +17,6 @@ const port = process.env.PORT || 3000;
 // Using SocketIO
 var server = http.createServer(app);
 var io = socketIO(server);
-
 
 // Creating the user instance
 var users = new Users();
@@ -62,21 +59,24 @@ io.on('connection',(socket) => {
     callback();
   });
 
-
-
-
-  //Get Location from user
+  // Emit the location message to the room in which the user is connected
+  // This event fires when chat.js sends createLocData message
   socket.on('createLocData', (loc) => {
-    io.emit('newChatLoc', generateLoc('Admin', loc.lat, loc.long));
+    var user = users.getUser(socket.id);
+    if(user){
+      io.to(user.room_name).emit('newChatLoc', generateLoc(user.user_name, loc.lat, loc.long));
+    }
   });
-
 
   //Create a chat event
   socket.on('createChat', (chat, callback) => {
-    console.log('createChat', chat);
     // IO emits to all the users
     // socket emits only to specific user
-    io.emit('newChat', generateChat(chat.from, chat.text));
+    var user = users.getUser(socket.id);
+
+    if(user && isRealString(chat.text)){
+      io.to(user.room_name).emit('newChat', generateChat(chat.from, chat.text));
+    }
 
     // Calling the callback function given by the front end
     callback();
@@ -95,8 +95,13 @@ io.on('connection',(socket) => {
 
 });
 
+
+// app use static makes all the files in the public directory
+// accessible to the client/it creates routes for the public files.
 app.use(express.static(publicPath));
 
+
+// listening to port usually 3000;
 server.listen(port, () => {
   console.log(`Listening to port ${port}`);
 });
