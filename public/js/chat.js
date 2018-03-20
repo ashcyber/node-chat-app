@@ -47,6 +47,22 @@ socket.on('disconnect', function() {
   console.log('Disconnected from the server');
 });
 
+// Update the users list on the page
+// To display on the people's section
+socket.on('updateUsers', function(users){
+  console.log('Users list', users);
+
+
+  var ol = jQuery('<ol></ol>');
+  users.forEach(function(user){
+    ol.append(jQuery('<li></li>').text(user));
+  });
+
+  jQuery('#people_list').html(ol);
+
+});
+
+
 // fetch location chat from the server
 socket.on('newChatLoc', function(loc){
     var a = jQuery(`<a target="_blank"><i>:CurrentLoc</i></a>`);

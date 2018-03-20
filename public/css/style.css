@@ -13,7 +13,22 @@ background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, F
   background: linear-gradient(to right, #5691c8, #457fca); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 10px;
   color: white;
+}
+v
+#people h1{
   font-size: 24px;
+}
+
+
+#people ol li{
+  margin-left: -50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  background-color: #F44336;
+  list-style: none;
+  border-radius: 5px;
+  padding-left: 10px;
 }
 
 #chat_box{
